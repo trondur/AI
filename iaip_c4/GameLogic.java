@@ -4,11 +4,7 @@ public class GameLogic implements IGameLogic {
     private int y = 0;
     private int playerID;
 
-    private int gameBoard[][];
-    private int height[];
-    private int latestCol = -1;
-    private int latestRow = -1;
-    private int latestP = -1;
+    private State state;
     
     public GameLogic() {
         //TODO Write your implementation for this method
@@ -36,6 +32,7 @@ public class GameLogic implements IGameLogic {
     }
 
     public int decideNextMove() {
+    	if(state.turn < 4) return startMoves();
         return alphaBeta(new State(gameBoard, height, playerID));
     }
 
@@ -137,5 +134,22 @@ public class GameLogic implements IGameLogic {
         }
         return true;
     }
-
+    private int startMoves(){
+    	switch(state.turn){
+    		if(state.h[3] == state.turn && !isFull(3)) return 3;
+    		case 0:
+    			return 3;
+    			break;
+    		case 1:
+    			if(state.h[1] == 1) return 2; 
+    			if(state.h[5] == 1) return 4;
+    			break;
+    		case 2:
+    			if(state.h[3] >= 2] return 
+    			// HVor jeg selv er uden i midten, eller hvis modstander oven på sig selv
+    		state.turn += 1;
+    	}
+    }
 }
+
+
