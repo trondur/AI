@@ -16,6 +16,11 @@ public class State {
         this.latestP = p;
     }
 
+    public void put(int a, int player){
+        p = player;
+        put(a);
+    }
+
     public void put(int a){
         gb[a][h[a]] = p;
         latestCol = a;
@@ -59,9 +64,20 @@ public class State {
         return h[column] >= y;
     }
 
-    private boolean allFull(){
+    public boolean isEmpty(int column){
+        return h[column] == 0;
+    }
+
+    public boolean allFull(){
         for(int i = 0; i < x; i++){
             if(!isFull(i)) return false;
+        }
+        return true;
+    }
+
+    public boolean allEmpty(){
+        for(int i = 0; i < x; i++){
+            if(!isEmpty(i)) return false;
         }
         return true;
     }

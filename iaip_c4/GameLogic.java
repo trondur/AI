@@ -14,26 +14,24 @@ public class GameLogic implements IGameLogic {
         this.x = x;
         this.y = y;
         this.playerID = playerID;
-        this.gameBoard = new int[x][y];
-        this.height = new int[x];
+        this.state = new State(new int[x][y], new int[x], playerID);
     }
 	
     public Winner gameFinished() {
-        int res = Checking.checkWinner(gameBoard, x, y, latestCol, latestRow, latestP);
-        return res < 0 ? Winner.NOT_FINISHED : res == 1 ? Winner.PLAYER1 : Winner.PLAYER2;
+        int res = state.isTerminal();
+        return res < 0 ? Winner.NOT_FINISHED : res == 0 ? Winner.TIE : res == 1 ? Winner.PLAYER1 : Winner.PLAYER2;
     }
 
     public void insertCoin(int column, int playerID) {
-        gameBoard[column][height[column]] = playerID;
-        latestCol = column;
-        latestRow = height[column];
-        latestP = playerID;
-        height[column] += 1;
+        state.put(column, playerID);
     }
 
     public int decideNextMove() {
     	if(state.turn < 4) return startMoves();
-        return alphaBeta(new State(gameBoard, height, playerID));
+        int move = 0;
+        if(state.allEmpty()) move = x/2;
+        else move = alphaBeta(state);
+        return move;
     }
 
     private int miniMax(State s){
@@ -105,6 +103,10 @@ public class GameLogic implements IGameLogic {
         return v;
     }
 
+    private int eval(State s){
+        return 0;
+    }
+
     private int utility(State s){
         int res = s.isTerminal();
         int val = 0;
@@ -122,7 +124,6 @@ public class GameLogic implements IGameLogic {
         //System.out.println(res + ", " + val);
         return val;
     }
-
     private boolean isFull(int column){
         return height[column] >= y;
     }
@@ -151,5 +152,3 @@ public class GameLogic implements IGameLogic {
     	}
     }
 }
-
-
