@@ -62,29 +62,99 @@ public class State {
         return arr;
     }
 
-    public int ranking(int chainSize){
+    public int ranking(){
         int points = 0;
         for(int r = 0; r < y; r++){
             for(int c = 0; c < x; c++){
+                if(y-r < 4 && x-c < 4) continue;
                 points += score(c, r);
             }
         }
         return points;
     }
 
+    public boolean checkScene(){
+        return h[x/2-1] == 1 && isFull(x/2) && h[x/2+1] == 1;
+    }
+
     public int score(int c, int r){
         int points = 0;
         boolean blocked = false;
-        int max = c <= y-4 ? c+3 : y-1;
+        boolean eblocked = false;
         int tmp = 0;
-        for(int i = c; i <= max; i++){
-            if(gb[i][r] == p) tmp++;
-            else if(gb[i][r] == op){
-                blocked = true;
-                break;
+        int space = 0;
+        if(x-c >= 4){
+            int max = c <= x-4 ? c+3 : x-1;
+            for(int i = c; i <= max; i++){
+                space = gb[i][r];
+                if(space == p && !blocked) {
+                    eblocked = true;
+                    tmp++;
+                }
+                else if(space == op && !eblocked){
+                    blocked = true;
+                    tmp--;
+                }
             }
+            tmp = tmp < 0 ? tmp*tmp*-1 : tmp*tmp;
+            if(!blocked || !eblocked) points += tmp;
         }
-        if(!blocked) points += tmp;
+        if(y-r >= 4){
+            blocked = false;
+            eblocked = false;
+            tmp = 0;
+            int max = r <= y-4 ? r+3 : y-1;
+            for(int i = r; i <= max; i++){
+                space = gb[c][i];
+                if(space == p && !blocked) {
+                    eblocked = true;
+                    tmp++;
+                }
+                else if(space == op && !eblocked){
+                    blocked = true;
+                    tmp--;
+                }else break;
+            }
+            tmp = tmp < 0 ? tmp*tmp*-1 : tmp*tmp;
+            if(!blocked || !eblocked) points += tmp; 
+        }
+        if(x-c >= 4 && y-r >= 4){
+            blocked = false;
+            eblocked = false;
+            tmp = 0;
+            for(int i = 0; i < 4; i++){
+                space = gb[c+i][r+i];
+                if(space == p && !blocked) {
+                    eblocked = true;
+                    tmp++;
+                }
+                else if(space == op && !eblocked){
+                    blocked = true;
+                    tmp--;
+                }
+            }
+            tmp = tmp < 0 ? tmp*tmp*-1 : tmp*tmp;
+            if(!blocked || !eblocked) points += tmp;
+        }
+
+        if(x-c >= 4 && y-r < 4){
+            blocked = false;
+            eblocked = false;
+            tmp = 0;
+            for(int i = 0; i < 4; i++){
+                space = gb[c+i][r-i]; 
+                if(gb[c+i][r-i] == p && !blocked) {
+                    eblocked = true;
+                    tmp++;
+                }
+                else if(gb[c+i][r-i] == op && !eblocked){
+                    blocked = true;
+                    tmp--;
+                }
+            }
+            tmp = tmp < 0 ? tmp*tmp*-1 : tmp*tmp;
+            if(!blocked || !eblocked) points += tmp;
+        }
         
         return points;
     }
