@@ -19,7 +19,7 @@ public class GameLogic implements IGameLogic {
 	
     public Winner gameFinished() {
         int res = state.isTerminal();
-        return res < 0 ? Winner.NOT_FINISHED : res == 1 ? Winner.PLAYER1 : Winner.PLAYER2;
+        return res < 0 ? Winner.NOT_FINISHED : res == 0 ? Winner.TIE : res == 1 ? Winner.PLAYER1 : Winner.PLAYER2;
     }
 
     public void insertCoin(int column, int playerID) {
