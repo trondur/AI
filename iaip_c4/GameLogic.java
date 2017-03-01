@@ -34,10 +34,16 @@ public class GameLogic implements IGameLogic {
     }
 
     public int decideNextMove() {
-    	if(state.getTurn() < 6){
-    		return startMoves();
+    	if(state.getH()[3] <= 5){
+    		if(!isDangerous()){
+    			return startMoves();
+    		}
+    		else {
+    			cut = 2;
+    		}
     	}
-    	if(state.getH()[3] >= 5) cut++;
+    	//if(state.getTurn() == 6 && isFull(3)) return 4; Helps with cut = 13
+    	if(state.getH()[3] >= 5 && state.getTurn() > 12) cut++;
         int move = 0;
         if(state.allEmpty()) move = x/2;
         else {
@@ -47,25 +53,9 @@ public class GameLogic implements IGameLogic {
             long duration = (endTime - startTime)/1000000;
             System.out.println(duration);
         }
+        if(cut == 1){ cut = 12};
         return move;
     }
-
-    // private int miniMax(State s){
-    //     //int[][] cgb = copy(gb);
-    //     int best = -1;
-    //     int max = -1000;
-    //     for(int i = 0; i < x; i++){
-    //         if(s.isFull(i)) continue;
-    //         State c = s.clone();
-    //         c.put(i);
-    //         int res = minValue(c, Integer.MIN_VALUE, Integer.MAX_VALUE);
-    //         System.out.println(res);
-    //         best = res > max ? i : best;
-    //         max = res > max ? res : max;
-    //     }
-    //     //System.out.println("--------------");
-    //     return best;
-    // }
 
     private int alphaBeta(State s){
         int best = -1;
@@ -182,5 +172,8 @@ public class GameLogic implements IGameLogic {
     		default:
     			return 3;
     	}
+    }
+    private boolean isDangerous(){
+    	return (this.state.checkColumn(3)) ? true : this.state.checkRow(3); 
     }
 }

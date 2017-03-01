@@ -218,7 +218,7 @@ public class State {
         return points;
     }
 
-    private boolean checkColumn(int chainSize){
+    public boolean checkColumn(int chainSize){
         int tmp = 0;
         for(int i = 0; i < y; i++){
             if(gb[latestCol][i] == latestP) {
@@ -229,7 +229,7 @@ public class State {
         return false;
     }
 
-    private boolean checkRow(int chainSize){
+    public boolean checkRow(int chainSize){
         int tmp = 0;
         for(int i = 0; i < x; i++){
             if(gb[i][latestRow] == latestP) {

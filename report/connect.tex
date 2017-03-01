@@ -12,8 +12,11 @@ Even with a cut-off function the searchspace is still quite large. To further re
 To optimize the $\alpha$-$\beta$ pruning \textit{MidOrFeed} explores the middle column first and then out towards the edges. In most cases this speeds up the pruning, since the best moves, especially at the start of the game, are usually found close to or in the middle column. And when the best moves are found earlier, there is a bigger chance that some branches can be pruned. This makes the searchspace smaller and in turn lets us use a higher maximal search depth. However if there are better moves further from the center column this approach will slow down the pruning.
 
 \subsection{Heuristics}
+The heuristic used scores a state based on amount of possible lines of four are started and possible to finish, compared to the opponent. An open line of length three are worth more than any line with two spots filled which is worth more than one. A line is worth the number of spots filled squared. This means a line of two are worth four while a line of three is worth nine. If a line is blocked it is worth zero. If the opponent has a line it is worth the negated amount.
 
+The lines are starting from each field on the row towards the right, the two diagonals in the right direction and up the column. The fields in the three times three square in the upper right corner are not counted, since no lines can start from there. This means fields towards the middle of the board will be used in multiple lines, resulting in a board with an open line in the middle are worth more than in the sides.
 
+This gives an heuristic where more possible lines of four for you increases the value while possible lines for the opponent decreases the value. But lines towards the middle and lines with more places filled are worth more.
 
 \subsection{Pre coded moves}
 As a result of the chosen heuristics and the rather naively implemented cut-off function \textit{MidOrFeed} occasionally makes very bad moves at the start of the game, when the searchspace is very large. To prevent the bad moves at the beginning, we compared the starting moves to the actual perfect moves using a connect 4 solver.\footnote{\url{http://connect4.gamesolver.org}}
