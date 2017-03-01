@@ -85,7 +85,7 @@ public class State {
             }
         }
         if(!blocked) points += tmp;
-
+        
         return points;
     }
 
