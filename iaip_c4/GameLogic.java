@@ -37,6 +37,7 @@ public class GameLogic implements IGameLogic {
     	if(state.getTurn() < 6){
     		return startMoves();
     	}
+    	if(state.getH()[3] >= 5) cut++;
         int move = 0;
         if(state.allEmpty()) move = x/2;
         else {
@@ -92,7 +93,6 @@ public class GameLogic implements IGameLogic {
                 alp = v > alp ? v : alp;
             }
         }
-        if(s.getTurn() > 9) cut++;
         return best;
     }
 
