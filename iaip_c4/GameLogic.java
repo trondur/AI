@@ -29,10 +29,10 @@ public class GameLogic implements IGameLogic {
     }
 
     public int decideNextMove() {
+    	if(state.getTurn() < 4) return startMoves();
         int move = 0;
         if(state.allEmpty()) move = x/2;
         else move = alphaBeta(state);
-
         return move;
     }
 
@@ -133,5 +133,31 @@ public class GameLogic implements IGameLogic {
         }
         //System.out.println(res + ", " + val);
         return val;
+    }
+    private boolean isFull(int column){
+        return state.getH()[column] >= y;
+    }
+
+    private boolean allFull(){
+        for(int i = 0; i < x; i++){
+            System.out.println(i);
+            if(!isFull(i)) return false;
+        }
+        return true;
+    }
+    private int startMoves(){
+    	if(state.getH()[3] == state.getTurn() && !isFull(3)) return 3;
+    	switch(state.getTurn()){ 		
+    		case 0:
+    			return 3;
+    		case 1:
+    			if(state.getH()[1] == 1) return 2; 
+    			if(state.getH()[5] == 1) return 4;
+    			break;
+    		case 2:
+    			if(state.getH()[3] >= 2) return 3;
+    			// HVor jeg selv er uden i midten, eller hvis modstander oven på sig selv
+    	}
+    	return 0;
     }
 }

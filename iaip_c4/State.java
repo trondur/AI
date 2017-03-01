@@ -3,6 +3,8 @@ public class State {
     private int[][] gb;
     private int[] h;
 
+    private int turn;
+
     private int x, y;
     private int p;
     private int latestCol, latestRow, latestP;
@@ -15,10 +17,17 @@ public class State {
         this.p = p;
         this.latestP = p;
     }
+    public int[] getH(){
+        return h;
+    }
+    public int getTurn(){
+        return turn;
+    }
 
     public void put(int a, int player){
         p = player;
         put(a);
+        turn++;
     }
 
     public void put(int a){
