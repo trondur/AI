@@ -6,7 +6,7 @@ public class State {
     private int turn;
 
     private int x, y;
-    private int p;
+    private int p, op;
     private int latestCol, latestRow, latestP;
 
     public State(int[][] gb, int[] h, int p){
@@ -15,6 +15,7 @@ public class State {
         this.gb = gb;
         this.h = h;
         this.p = p;
+        this.op = p == 1 ? 2 : 1;
         this.latestP = p;
     }
     public int[] getH(){
@@ -62,10 +63,30 @@ public class State {
     }
 
     public int ranking(int chainSize){
-        if(checkColumn(chainSize) || checkRow(chainSize) || checkDiagLeft(chainSize) || checkDiagRight(chainSize)){
-            return 1;
+        int points = 0;
+        for(int r = 0; r < y; r++){
+            for(int c = 0; c < x; c++){
+                points += score(c, r);
+            }
         }
-        return 0;
+        return points;
+    }
+
+    public int score(int c, int r){
+        int points = 0;
+        boolean blocked = false;
+        int max = c <= y-4 ? c+3 : y-1;
+        int tmp = 0;
+        for(int i = c; i <= max; i++){
+            if(gb[i][r] == p) tmp++;
+            else if(gb[i][r] == op){
+                blocked = true;
+                break;
+            }
+        }
+        if(!blocked) points += tmp;
+
+        return points;
     }
 
     public int isTerminal(){
@@ -96,6 +117,35 @@ public class State {
             if(!isEmpty(i)) return false;
         }
         return true;
+    }
+
+    private int score(int fst, int snd, int thd, int fth){
+        int tmp = 0;
+        tmp = fst == latestP ? tmp+1 : fst == 0 ? tmp : tmp-1;
+        tmp = snd == latestP ? tmp+1 : snd == 0 ? tmp : tmp-1;
+        tmp = thd == latestP ? tmp+1 : thd == 0 ? tmp : tmp-1;
+        tmp = fth == latestP ? tmp+1 : fth == 0 ? tmp : tmp-1;
+        return tmp;
+    }
+
+    private int scoreRow(){
+        int points = 0;
+        for(int j = 0; j < y; j++){
+            for(int i = 0; i < x-3; i++){
+                points += score(gb[i][j], gb[i+1][j], gb[i+2][j], gb[i+3][j]);
+            }
+        }
+        return points;
+    }
+
+    private int scoreColumn(){
+        int points = 0;
+        for(int j = 0; j < x; j++){
+            for(int i = 0; i < y-3; i++){
+                points += score(gb[j][i], gb[j][i+1], gb[j][i+2], gb[j][i+3]);
+            }
+        }
+        return points;
     }
 
     private boolean checkColumn(int chainSize){

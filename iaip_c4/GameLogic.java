@@ -16,7 +16,7 @@ public class GameLogic implements IGameLogic {
         this.y = y;
         this.playerID = playerID;
         this.state = new State(new int[x][y], new int[x], playerID);
-        this.cut = 7;
+        this.cut = 25;
     }
 	
     public Winner gameFinished() {
@@ -67,6 +67,7 @@ public class GameLogic implements IGameLogic {
             State c = s.clone();
             c.put(i);
             int res = minValue(c, alp, bet, 1);
+            System.out.println(res + ", " + i);
             //System.out.println(res);
             best = res > v ? i : best;
             v = res > v ? res : v;
@@ -76,7 +77,6 @@ public class GameLogic implements IGameLogic {
     }
 
     private int maxValue(State s, int alp, int bet, int dep){
-        System.out.println("Max: " + dep);
         if(cutoff(dep, s)) return eval(s);
         int v = Integer.MIN_VALUE;
         for(int i = 0; i < x; i++){
@@ -92,7 +92,6 @@ public class GameLogic implements IGameLogic {
     }
 
     private int minValue(State s, int alp, int bet, int dep){
-        System.out.println("Min: " + dep);
         if(cutoff(dep, s)) return eval(s);
         int v = Integer.MAX_VALUE;
         for(int i = 0; i < x; i++){
@@ -110,11 +109,10 @@ public class GameLogic implements IGameLogic {
     private int eval(State s){
         int res = s.isTerminal();
         if(res >= 0) return utility(res);
-        return s.ranking(4);
+        return s.ranking(3);
     }
 
     private boolean cutoff(int depth, State s){
-        System.out.println("Cutoff: "+ depth + ", " + cut);
         return (depth >= cut) || (s.isTerminal() >= 0);
     }
 
@@ -125,10 +123,10 @@ public class GameLogic implements IGameLogic {
                 val = 0;
                 break;
             case 1:
-                val = playerID == 1 ? 1 : -1;
+                val = playerID == 1 ? 1000 : -1000;
                 break;
             case 2:
-                val = playerID == 2 ? 1 : -1;
+                val = playerID == 2 ? 1000 : -1000;
                 break;
         }
         //System.out.println(res + ", " + val);
