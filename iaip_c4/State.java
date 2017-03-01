@@ -52,8 +52,15 @@ public class State {
         return arr;
     }
 
+    public int ranking(int chainSize){
+        if(checkColumn(chainSize) || checkRow(chainSize) || checkDiagLeft(chainSize) || checkDiagRight(chainSize)){
+            return 1;
+        }
+        return 0;
+    }
+
     public int isTerminal(){
-        if(checkColumn() || checkRow() || checkDiagLeft() || checkDiagRight()){
+        if(checkColumn(4) || checkRow(4) || checkDiagLeft(4) || checkDiagRight(4)){
             return latestP;
         }
         if(allFull()) return 0;
@@ -82,36 +89,36 @@ public class State {
         return true;
     }
 
-    private boolean checkColumn(){
+    private boolean checkColumn(int chainSize){
         int tmp = 0;
         for(int i = 0; i < y; i++){
             if(gb[latestCol][i] == latestP) {
-                if(++tmp == 4) return true;
+                if(++tmp == chainSize) return true;
             }
             else tmp = 0;
         }
         return false;
     }
 
-    private boolean checkRow(){
+    private boolean checkRow(int chainSize){
         int tmp = 0;
         for(int i = 0; i < x; i++){
             if(gb[i][latestRow] == latestP) {
-                if(++tmp == 4) return true;
+                if(++tmp == chainSize) return true;
             }
             else tmp = 0;
         }
         return false;
     }
 
-    private boolean checkDiagLeft(){
+    private boolean checkDiagLeft(int chainSize){
         int d = latestCol - latestRow;
         int tx = d < 0 ? 0 : d;
         int ty = d < 0 ? -d : 0;
         int tmp = 0;
         while(tx < x && ty < y) {
             if(gb[tx][ty] == latestP) {
-                if(++tmp == 4) return true;
+                if(++tmp == chainSize) return true;
             }
             else tmp = 0;
             tx++;
@@ -120,7 +127,7 @@ public class State {
         return false;
     }
 
-    private boolean checkDiagRight(){
+    private boolean checkDiagRight(int chainSize){
         int d = latestCol + latestRow;
         int diff = d - x + 1;
         int tx = d >= x ? d - diff : d;
@@ -128,7 +135,7 @@ public class State {
         int tmp = 0;
         while(tx < x && ty < y && tx >= 0) {
             if(gb[tx][ty] == latestP) {
-                if(++tmp == 4) return true;
+                if(++tmp == chainSize) return true;
             }
             else tmp = 0;
             tx--;
