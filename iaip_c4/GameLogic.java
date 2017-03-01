@@ -107,7 +107,6 @@ public class GameLogic implements IGameLogic {
         }
         return v;
     }
-
     private int eval(State s){
         int res = s.isTerminal();
         if(res >= 0) return utility(res);
