@@ -1,4 +1,5 @@
 
+//Class contains a game state with information about the board and players.
 public class State {
     private int[][] gb;
     private int[] h;
@@ -25,12 +26,14 @@ public class State {
         return turn;
     }
 
+    //player puts token in column a.
     public void put(int a, int player){
         p = player;
         put(a);
         turn++;
     }
 
+    //Next player puts token in column a.
     public void put(int a){
         gb[a][h[a]] = p;
         latestCol = a;
@@ -40,6 +43,7 @@ public class State {
         p = p == 1 ? 2 : 1;
     }
 
+    //Returns a clone of the state.
     public State clone(){
         return new State(copy(gb), copy(h), p);
     }
@@ -62,6 +66,7 @@ public class State {
         return arr;
     }
 
+    //Calculates the heuristic score of the board.
     public int ranking(){
         int points = 0;
         for(int r = 0; r < y; r++){
@@ -73,10 +78,12 @@ public class State {
         return points;
     }
 
+    //Checks for a specific scenario.
     public boolean checkScene(){
         return h[x/2-1] == 1 && isFull(x/2) && h[x/2+1] == 1;
     }
 
+    //Calculates the score of a single tile, by checking possible lines to the right, the diagonals to the right and up.
     public int score(int c, int r){
         int points = 0;
         boolean blocked = false;
@@ -159,6 +166,7 @@ public class State {
         return points;
     }
 
+    //Checks if the board is in a terminal state.
     public int isTerminal(){
         if(checkColumn(4) || checkRow(4) || checkDiagLeft(4) || checkDiagRight(4)){
             return latestP;
@@ -167,14 +175,17 @@ public class State {
         return -1;
     }
 
+    //Checks if a column is full.
     public boolean isFull(int column){
         return h[column] >= y;
     }
 
+    //Checks if a column is empty.
     public boolean isEmpty(int column){
         return h[column] == 0;
     }
 
+    //Checks if the board is full.
     public boolean allFull(){
         for(int i = 0; i < x; i++){
             if(!isFull(i)) return false;
@@ -182,6 +193,7 @@ public class State {
         return true;
     }
 
+    //Checks if the board is empty.
     public boolean allEmpty(){
         for(int i = 0; i < x; i++){
             if(!isEmpty(i)) return false;
@@ -189,35 +201,7 @@ public class State {
         return true;
     }
 
-    private int score(int fst, int snd, int thd, int fth){
-        int tmp = 0;
-        tmp = fst == latestP ? tmp+1 : fst == 0 ? tmp : tmp-1;
-        tmp = snd == latestP ? tmp+1 : snd == 0 ? tmp : tmp-1;
-        tmp = thd == latestP ? tmp+1 : thd == 0 ? tmp : tmp-1;
-        tmp = fth == latestP ? tmp+1 : fth == 0 ? tmp : tmp-1;
-        return tmp;
-    }
-
-    private int scoreRow(){
-        int points = 0;
-        for(int j = 0; j < y; j++){
-            for(int i = 0; i < x-3; i++){
-                points += score(gb[i][j], gb[i+1][j], gb[i+2][j], gb[i+3][j]);
-            }
-        }
-        return points;
-    }
-
-    private int scoreColumn(){
-        int points = 0;
-        for(int j = 0; j < x; j++){
-            for(int i = 0; i < y-3; i++){
-                points += score(gb[j][i], gb[j][i+1], gb[j][i+2], gb[j][i+3]);
-            }
-        }
-        return points;
-    }
-
+    //Check if the column of the latest placed piece creates a line of size chainSize.
     public boolean checkColumn(int chainSize){
         int tmp = 0;
         for(int i = 0; i < y; i++){
@@ -229,6 +213,7 @@ public class State {
         return false;
     }
 
+    //Check if the row of the latest placed piece creates a line of size chainSize.
     public boolean checkRow(int chainSize){
         int tmp = 0;
         for(int i = 0; i < x; i++){
@@ -240,6 +225,7 @@ public class State {
         return false;
     }
 
+    //Check if the left/up diagonal of the latest placed piece creates a line of size chainSize.
     private boolean checkDiagLeft(int chainSize){
         int d = latestCol - latestRow;
         int tx = d < 0 ? 0 : d;
@@ -255,7 +241,7 @@ public class State {
         }
         return false;
     }
-
+    //Check if the right/down diagonal of the latest placed piece creates a line of size chainSize.
     private boolean checkDiagRight(int chainSize){
         int d = latestCol + latestRow;
         int diff = d - x + 1;
