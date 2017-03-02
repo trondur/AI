@@ -9,9 +9,8 @@ public class MidOrFeed implements IGameLogic {
     private State state;
     
     public MidOrFeed() {
-        //TODO Write your implementation for this method
+
     }
-	//x = columns, y = rows
     public void initializeGame(int x, int y, int playerID) {
         this.x = x;
         this.y = y;
@@ -35,7 +34,9 @@ public class MidOrFeed implements IGameLogic {
 
     //Decides what to do based on the current turn and state of the board.
     public int decideNextMove() {
+    	// If middle column is not full
     	if(state.getH()[3] <= 5){
+    		// Can opponent win next turn
     		if(!isDangerous()){
     			return startMoves();
     		}
@@ -43,15 +44,13 @@ public class MidOrFeed implements IGameLogic {
     			cut = 2;
     		}
     	}
-    	//if(state.getTurn() == 6 && isFull(3)) return 4; Helps with cut = 13
-    	if(state.getH()[3] >= 5 && state.getTurn() > 12) cut++;
-        int move = 0;
-        if(state.allEmpty()) move = x/2;
-        else {
-            move = alphaBeta(state);
-        }
+    	// If middle is full, and no other pieces have been placed
+    	if(state.getTurn() == 6 && isFull(3)) return 4; // Helps with cut = 13
+    	// Increment search depth if game has progressed long enough
+    	if(state.getH()[3] >= 5 && state.getTurn() > 14) cut++;
+        // Reset cut
         if(cut == 1) cut = 12;
-        return move;
+        return alphaBeta(state);
     }
 
     //Minimax with AlphaBeta pruning and using a heuristic. 
@@ -62,10 +61,7 @@ public class MidOrFeed implements IGameLogic {
         int alp = Integer.MIN_VALUE;
         int bet = Integer.MAX_VALUE;
         int mid = x/2;
-        System.out.println("start");
-        //if(s.checkScene()) return (x/2+1);
         if(s.isTerminal() >= 0) return eval(s, 0);
-        System.out.println("stop");
         int v = Integer.MIN_VALUE;
         for(int j = 0; j < x; j++){
             int i = columnOrder[j];
@@ -73,7 +69,6 @@ public class MidOrFeed implements IGameLogic {
             State c = s.clone();
             c.put(i);
             int res = minValue(c, alp, bet, 1);
-            System.out.println(res + ", " + i);
             if(res == v && Math.abs(mid-i) < Math.abs(mid-best)){
                 best = i;
             }else{
@@ -177,6 +172,7 @@ public class MidOrFeed implements IGameLogic {
     			return 3;
     	}
     }
+    // Checks if the opponent can win next turn.
     private boolean isDangerous(){
     	return (this.state.checkColumn(3)) ? true : this.state.checkRow(3); 
     }
