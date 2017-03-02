@@ -47,13 +47,9 @@ public class MidOrFeed implements IGameLogic {
     	if(state.getTurn() == 6 && isFull(3)) return 4; // Helps with cut = 13
     	// Increment search depth if game has progressed long enough
     	if(state.getH()[3] >= 5 && state.getTurn() > 14) cut++;
-        int move = 0;
-        else {
-            move = alphaBeta(state);
-        }
         // Reset cut
         if(cut == 1) cut = 12;
-        return move;
+        return alphaBeta(state);
     }
 
     private int alphaBeta(State s){
