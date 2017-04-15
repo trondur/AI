@@ -46,9 +46,9 @@ public class QueensLogic {
 
     //Creates rules for the BDD
     private void createRules(){
-        for(int i = 0; i<N; i++){
+        for(int i = 0; i < N; i++){
             BDD colHasQueen = False;
-            for(int j = 0; j<N; j++){
+            for(int j = 0; j < N; j++){
                 //Constraint for the column to make sure atleast one cell contains a queen 
                 colHasQueen = colHasQueen.or(fact.ithVar(position(i,j)));
                 //Add no capture constraints for cell

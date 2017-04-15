@@ -16,5 +16,19 @@ The two classes \texttt{QueensGUI} and \texttt{ShowBoard} are only relevant to d
 \end{description}
 
 \section{Rule implementation}
+We will go through how the two rules, at-least-one-queen-per-row and no-queen-can-capture-another are implemented. 
+The first rule one-queen-per-row is implemented by:
+\begin{enumerate}
+ \item Creating a sub BDD that is false for every column.
+ \item Going through every position on the chessboard and checking whether or not it is possible to place a queen there.
+\end{enumerate}
+
+The second rule no-queen-can-capture-another is implemented by going through all positions in the chessboard and:
+\begin{enumerate}
+	\item Create a sub BDD representing the that no queen can capture another. The BDD is initialized to true.
+ 	\item Go through all column positions with the given row position and checking that there is no queen there.
+ 	\item Go through all row positions with the given column position and checking that there is no queen there.
+ 	\item Go through all the diagonals positions with the given column and row position and checking that there is no queen there.
+\end{enumerate}
 
 \section{Conclusion}
