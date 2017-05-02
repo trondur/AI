@@ -1,0 +1,35 @@
+\section{Introduction}
+The \textit{n}-queens problem is a puzzle where the solution is to place \textit{n} queens on a \textit{n}x\textit{n} board, such that no two queens threaten each other. This means that no two queens can be in the same row, column and diagonals.
+\section{QueensLogic}
+The two classes \texttt{QueensGUI} and \texttt{ShowBoard} are only relevant to drawing the solution and we will therefore only describe the methods in the class \texttt{QueensLogic}. \texttt{QueensLogic} is the class responsible for all logic relevant to solve the n-queens problem and has the following methods:
+\begin{description}
+	\item[InitializeGame] Sets $N$, the width and height of the game board and create a 2D int array to represent the chess board. Lastly it calls \textit{createBDD} and \textit{setInvalids}.
+	\item[getGameBoard] Return the 2D int array representing the chessboard.
+	\item[createBDD] Uses the javabdd package to initialize a BDD with 2.000.000 nodes and 200.000 cache as suggested. It then creates a BDD with N*N variables -- one for each chessboard position. Lastly it calls \texttt{createRules}.
+	\item[createRules] Creates the first of the two rules for the BDD to solve the n-queens problem. The first rule is that there must be a queen in any column. It calls \texttt{noCaptureRule} to create the second rule.
+	\item[noCaptureRule] Creates the second rule, which specifies that no queen must be able to capture another.
+	\item[position] Converts a board position of the form $column, row$ to variable number in the BDD between 0-63.	
+	\item[isInvalid] Checks if setting a variable in the BDD to true makes the BDD false. 
+	\item[setInvalids] Goes through all chessboard positions and calls isInvalid to check if placing a queen on a particular tile makes the BDD false.
+	\item[setRemainingVailds] Set all positions still valid on the chessboard to 1 which makes the GUI place a queen there.
+	\item[insertQueen] Returns without doing anything if the users is trying to place a queen in an invalid position or in a position already containing a queen. If that is not the case, it places a queen on the given position, updates the BDD and the invalid positions by calling \textit{setInvalids}. Lastly, if there is only one remaining solution to the BDD, it calls \texttt{setRemainingValids}.
+\end{description}
+
+\section{Rule implementation}
+We will go through how the two rules, at-least-one-queen-per-row and no-queen-can-capture-another are implemented. 
+The first rule one-queen-per-row is implemented by:
+\begin{enumerate}
+ \item Creating a sub BDD that is false for every column.
+ \item Going through every position on the chessboard and checking whether or not it is possible to place a queen there.
+\end{enumerate}
+
+The second rule no-queen-can-capture-another is implemented by going through all positions in the chessboard and:
+\begin{enumerate}
+	\item Create a sub BDD representing the that no queen can capture another. The BDD is initialized to true.
+ 	\item Go through all column positions with the given row position and checking that there is no queen there.
+ 	\item Go through all row positions with the given column position and checking that there is no queen there.
+ 	\item Go through all the diagonals positions with the given column and row position and checking that there is no queen there.
+\end{enumerate}
+
+\section{Conclusion}
+The implemented logic appears to block the invalid cells correctly resulting in a correct solution. The auto complete when only one solution remains also seems to function corretly.
