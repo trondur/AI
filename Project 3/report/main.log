@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.6)  15 APR 2017 14:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.6)  3 MAY 2017 11:21
 entering extended mode
 **main
-("D:\Github\AI\Project 2\report\main.tex"
+("D:\Github\AI\Project 3\report\main.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -315,9 +315,9 @@ Package color Info: Driver file: pdftex.def on input line 130.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\placeins\placeins.sty"
 Package: placeins 2005/04/18  v 2.2
 )
-("D:\Github\AI\Project 2\report\main.aux"
-("D:\Github\AI\Project 2\report\00_frontPage.aux")
-("D:\Github\AI\Project 2\report\report.aux"))
+("D:\Github\AI\Project 3\report\main.aux"
+("D:\Github\AI\Project 3\report\00_frontPage.aux")
+("D:\Github\AI\Project 3\report\report.aux"))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
@@ -346,7 +346,7 @@ LaTeX Font Info:    ... okay on input line 27.
 \everyMPtoPDFconversion=\toks19
 )
 \c@lstlisting=\count102
- ("D:\Github\AI\Project 2\report\00_frontPage.tex"
+ ("D:\Github\AI\Project 3\report\00_frontPage.tex"
 <logo.jpg, id=1, 373.395pt x 274.02374pt>
 File: logo.jpg Graphic file (type jpg)
  <use logo.jpg>
@@ -355,47 +355,53 @@ Package pdftex.def Info: logo.jpg used on input line 4.
  [1
 
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <D:/Github/AI/Project 2/re
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <D:/Github/AI/Project 3/re
 port/logo.jpg>])
-("D:\Github\AI\Project 2\report\report.tex"
+("D:\Github\AI\Project 3\report\report.tex"
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 2.
+
+<Sudoku.png, id=10, 312.16624pt x 313.17pt>
+File: Sudoku.png Graphic file (type png)
+ <use Sudoku.png>
+Package pdftex.def Info: Sudoku.png used on input line 5.
+(pdftex.def)             Requested size: 256.0748pt x 256.9014pt.
  [1
 
 
-]
-Overfull \hbox (11.88947pt too wide) in paragraph at lines 26--27
-[]\OT1/cmr/m/n/10 The sec-ond rule no-queen-can-capture-another is im-ple-mente
-d by go-ing through
- []
-
-) [2] ("D:\Github\AI\Project 2\report\main.aux"
-("D:\Github\AI\Project 2\report\00_frontPage.aux")
-("D:\Github\AI\Project 2\report\report.aux")) ) 
+ <D:/Github/AI/Project 3/report/Sudoku.png>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 23.
+) [2] ("D:\Github\AI\Project 3\report\main.aux"
+("D:\Github\AI\Project 3\report\00_frontPage.aux")
+("D:\Github\AI\Project 3\report\report.aux")) ) 
 Here is how much of TeX's memory you used:
- 2752 strings out of 493921
- 37432 string characters out of 3144867
- 92801 words of memory out of 3000000
- 6039 multiletter control sequences out of 15000+200000
- 7221 words of font info for 26 fonts, out of 3000000 for 9000
+ 2771 strings out of 493921
+ 37642 string characters out of 3144867
+ 91801 words of memory out of 3000000
+ 6052 multiletter control sequences out of 15000+200000
+ 8736 words of font info for 31 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,5n,32p,438b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,8n,32p,826b,232s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (3 pages, 154163 bytes).
+.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmtt10.pfb>
+Output written on main.pdf (3 pages, 168247 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
+ 58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

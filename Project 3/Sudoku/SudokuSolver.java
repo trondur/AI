@@ -20,6 +20,7 @@ public class SudokuSolver implements ISudokuSolver {
 
 		puzzle = new int[size*size][size*size];
 
+		// Initializes
 		D = new ArrayList<ArrayList<Integer>>(size*size*size*size);
 		
 		for (int i = 0; i < size*size*size*size; i++) {
@@ -56,8 +57,9 @@ public class SudokuSolver implements ISudokuSolver {
 
 		ArrayList<ArrayList<Integer>> backupD = cloneNestedArray(D);
 
-		ArrayList<Integer> assignmentBackup = cloneArray(D.get(unassignedIdx));
-		for (int assignment : assignmentBackup) {
+		ArrayList<Integer> domainBackup = cloneArray(D.get(unassignedIdx));
+
+		for (int assignment : domainBackup) {
 			if(AC_FC(unassignedIdx, assignment)){
 				asn.set(unassignedIdx, assignment);
 

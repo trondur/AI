@@ -1,12 +1,12 @@
 \section{Introduction}
-The \textit{n}-queens problem is a puzzle where the solution is to place \textit{n} queens on a \textit{n}x\textit{n} board, such that no two queens threaten each other. This means that no two queens can be in the same row, column and diagonals.
+The \textit{n}-queens problem is a puzzle where the solution is to place \textit{n} queens on a $n*n$ board, such that no queen can capture another. This means that no two queens can be in the same row, column or diagonal.
 \section{QueensLogic}
 The two classes \texttt{QueensGUI} and \texttt{ShowBoard} are only relevant to drawing the solution and we will therefore only describe the methods in the class \texttt{QueensLogic}. \texttt{QueensLogic} is the class responsible for all logic relevant to solve the n-queens problem and has the following methods:
 \begin{description}
 	\item[InitializeGame] Sets $N$, the width and height of the game board and create a 2D int array to represent the chess board. Lastly it calls \textit{createBDD} and \textit{setInvalids}.
 	\item[getGameBoard] Return the 2D int array representing the chessboard.
-	\item[createBDD] Uses the javabdd package to initialize a BDD with 2.000.000 nodes and 200.000 cache as suggested. It then creates a BDD with N*N variables -- one for each chessboard position. Lastly it calls \texttt{createRules}.
-	\item[createRules] Creates the first of the two rules for the BDD to solve the n-queens problem. The first rule is that there must be a queen in any column. It calls \texttt{noCaptureRule} to create the second rule.
+	\item[createBDD] Uses the javabdd package to initialize a BDD with 2.000.000 nodes and 200.000 cache as suggested. It then creates a BDD with $N*N$ variables -- one for each chessboard position. Lastly it calls \textit{createRules}.
+	\item[createRules] Creates the first of the two rules for the BDD to solve the n-queens problem. The first rule is that there must be a queen in any column. It calls \textit{noCaptureRule} to create the second rule.
 	\item[noCaptureRule] Creates the second rule, which specifies that no queen must be able to capture another.
 	\item[position] Converts a board position of the form $column, row$ to variable number in the BDD between 0-63.	
 	\item[isInvalid] Checks if setting a variable in the BDD to true makes the BDD false. 
@@ -32,4 +32,4 @@ The second rule no-queen-can-capture-another is implemented by going through all
 \end{enumerate}
 
 \section{Conclusion}
-The implemented logic appears to block the invalid cells correctly resulting in a correct solution. The auto complete when only one solution remains also seems to function corretly.
+The implemented logic appears to block the invalid cells correctly resulting in a correct solution. The auto complete when only one solution remains also seems to function correctly.
